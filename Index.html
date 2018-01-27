@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <title>Ripal</title>
+    <meta name="viewport" content="width=device-width, initial-scale = 1 , maximum-scale=1, user-scalable = 0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="Styles/Home.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js" ></script>
+    <script type="text/javascript" src="Scripts/jquery.section-scroll.js" ></script>
+    <script type="text/javascript" src="Scripts/jquery.easing.1.3.js" ></script>
+    <link rel="stylesheet" type="text/css" href="Styles/section-scroll.css" />
+
+</head>
+<body class="bg-pattern">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').sectionScroll({
+            titles: false
+        });
+
+        $('body').on('section-reached', function(){
+            var activeCircle = $('body').sectionScroll.activeSection.attr('id');
+            if(!!activeCircle){
+                $(".section-bullets li").removeClass("current");
+                activeCircle = activeCircle.replace("scrollto-section-","");
+                $(".section-bullets li").eq(activeCircle - 1).addClass("current");
+            }
+            if(activeCircle == "2"){
+                $(".greenEnergy").addClass("greenEnergyActive");
+            }else{
+                $(".greenEnergyActive").removeClass("greenEnergyActive");
+            }
+
+            if(activeCircle == "3"){
+                $(".eqalSection").eq(0).addClass("eqalSectionAnimate");
+                var timer = 300;
+                setTimeout(function(){
+                    $(".eqalSection").eq(1).addClass("eqalSectionAnimate");
+                    setTimeout(function(){
+                        $(".eqalSection").eq(2).addClass("eqalSectionAnimate");
+                        setTimeout(function(){
+                            $(".eqalSection").eq(3).addClass("eqalSectionAnimate");
+                        },timer);
+                    },timer);
+                },timer);
+            }else{
+                $(".eqalSection").removeClass("eqalSectionAnimate");
+            }
+        });
+
+        $('.getOnButton').click(function(){
+            $('.subscribeSectionContainer').show();
+        });
+
+        $(".closeIcon").click(function(){
+            $('.subscribeSectionContainer').hide();
+        });
+
+        $(".sendButton").click(function(){
+            to=$(".emailInput").val();
+            subject = "Rippl Subscription";
+            text="Thank you for the Subscription.";
+            $(".sendButton").text("Sending..");
+            $.get("/send",{to:to,subject:subject,text:text},function(data){
+                if(data=="sent")
+                {
+                    $('.subscribeSectionContainer').hide();
+                    $('.thanksContainer').show();
+                    setTimeout(function(){
+                        $('.thanksContainer').fadeOut(2000);
+                    },2000);
+                }
+            });
+        });
+    });
+</script>
+    <div class="scrollable-section fullWidth" href="" data-section-title="Home">
+
+        <div class="iphoneSection">
+            <div class="sectionBackround fullWidth">
+                <div class="fullWidth">
+                    <img src="Images/RippalLogo.png" class="logo"/>
+                </div>
+            </div>
+            <div class="getOnContainer">
+                <div class="orangeTxt text-left">
+                    We're a community of music-loving misfits <br class="hidden320"/>
+                    creating DJ sets for every mood and genre
+                </div>
+                <div class="button getOnButton" />
+            </div>
+            <img src="Images/IphoneBlack2.png" class="iphone2">
+            <img src="Images/Iphone2Shadow.png" class="iphone2Shadow">
+        </div>
+    </div>
+
+    <div class="scrollable-section fullWidth" href="" data-section-title="Search Music">
+        <div class="iphoneGroupSection">
+            <div class="sectionTitle searchByText">
+                Search Music by Energy
+            </div>
+            <div class="orangeTxt text-center">
+                Choose sets based on your current vibe.
+            </div>
+
+
+            <!--<img src="Images/LowEnergy.png" class="lowEnergy" />
+            <div class="greenEnergy">
+                <div class="mediumText">Medium</div>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="iphoneImageGroupSection">
+        <img src="Images/IphoneGroup.png" class="iphoneGroup"/>
+    </div>
+
+    <div class="scrollable-section fullWidth" href="" data-section-title="Love of Music">
+        <div class="forLoveOfMusicSection">
+            <div class="bigCircleContainer">
+                <div class="sectionTitle forLoveTitle">
+                    For the Love of Music
+                </div>
+                <div class="orangeTxt text-left">
+                    A vast collection of main-stream and alternative genres for every occasion.
+                </div>
+                <div>
+                    <div class="eqalSection">
+                        <div class="equalizerType">Indie&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <img src="Images/Indie.png" class="equalizerIcon" />
+                    </div>
+                    <div class="eqalSection rockEqal">
+                        <div class="equalizerType">Rock&nbsp;&nbsp;</div>
+                        <img src="Images/Rock.png" class="equalizerIcon" />
+                    </div>
+                    <div class="eqalSection hipHopEqual">
+                        <div class="equalizerType">Hip-hop</div>
+                        <img src="Images/HipHop.png" class="equalizerIcon" />
+                    </div>
+                    <div class="eqalSection houseEqual">
+                        <div class="equalizerType">House</div>
+                        <img src="Images/House.png" class="equalizerIcon" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable-section fullWidth discoverDj" href="" data-section-title="Discover DJs">
+        <div class="fullWidth discoverNewDjSection">
+            <div class="sectionTitle discoverNewDjTxt">
+                Discover New DJs
+            </div>
+            <div class="orangeTxt">
+                An eclectic mix of popular, emerging,<br/>
+                and underground DJs
+
+            </div>
+            <br/>
+            <br/>
+
+            <div>
+                <div>
+                    <img src="Images/DJ.png" class="singerThumb"/>
+                </div>
+                <div class="playerIconContainer">
+                    <img src="Images/NextButton.png" class="nextBtn"/>
+                    <img src="Images/PlayButton.png" class="playBtn"/>
+                    <img src="Images/PrevButton.png" class="prevBtn"/>
+                </div>
+                <img src="Images/DJ-Shadow.png" class="djShadow">
+                <div class="button getOnButton getOnButtonBottom"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------- Modal ----------------------------->
+    <div class="thanksContainer" style="display: none;">
+        <div class="thanksTxt">Thanks!</div>
+        <div class="nowShareTheLove">Now share the Love!</div>
+        <div>
+            <img class="twitterIcon" src="Images/Twitter.png"/>
+            <img class="facebookIcon" src="Images/Facebook.png"/>
+        </div>
+        <div class="ifYouLoveTxt orangeTxt">
+            If you love good music, <br/> you'll love Ripple.
+        </div>
+    </div>
+
+    <div class="subscribeSectionContainer">
+        <img class="closeIcon" src="Images/Cross.png"/>
+        <input type="text" placeholder="E-mail" class="emailInput" value=""/>
+
+        <div class="gradientBackGround sendButton">Send</div>
+    </div>
+
+    <!--------------- Modal ------------------------------>
+    <div class="footerContainer">
+        <div class="footerLeftSection">
+            &#169; 2016 **company**
+        </div>
+        <div class="footerRightSection">
+            <div>
+                The design and website development LTD Tutmee.ru
+            </div>
+            <div class="tutmeeLogo">
+            </div>
+            <div class="tutmeeLogo">
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
